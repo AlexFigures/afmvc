@@ -15,11 +15,11 @@ function Login()
         url: MyHOSTNAME + '/login',
         data: "login=" + encodeURIComponent($("#login").val()) + "&pass=" + encodeURIComponent($("#pass").val()),
         success: function (response) {
-        if(response.is_auth == false){
+        if(response.is_auth === false){
             $('#login').addClass('error');
             $('#pass').addClass('error');
             $('[data-toggle="popover"]').popover('show')
-        }else if(response.is_auth == true){
+        }else if(response.is_auth === true){
             $('#login').addClass('success');
             $('#pass').addClass('success');
             $('[data-toggle="popover"]').popover('hide')
@@ -76,11 +76,11 @@ function showModalWinTask(str) {
     $("#mdu").text(temp[5]);
     $("#mtuid").val(temp[7]);
 
-    if(temp[6] == 0) {
+    if(temp[6] === 0) {
         $('#mst').text("Waiting");
         $('#editTask').prop("disabled", false);
         $('#doneTask').prop("disabled", false);
-    } else if(temp[6] == 1) {
+    } else if(temp[6] === 1) {
         $('#mst').text("Done");
         $('#editTask').prop("disabled", false);
         $('#doneTask').prop("disabled", true);
@@ -107,7 +107,7 @@ $('body').on('click', 'button#login', function(event) {
 
 $('body').on('click', 'button#newTask', function(event) {
     event.preventDefault();
-    if(checkNewTask() == 0) {
+    if(checkNewTask() === 0) {
      newTask();
      }
 });
@@ -162,19 +162,32 @@ function checkNewTask(){
     var mail = $('#email');
 
     if ($('#email').val().length !== 0) {
-        if($('#email').val().search(regexp) == 0){
+        if($('#email').val().search(regexp) === 0){
            $('#email').removeClass('error').addClass('success');
+            $('[data-toggle="popover"]').popover('hide')
         }else{
             $('#email').addClass('error');
+            $('[data-toggle="popover"]').popover('show');
+            setTimeout(function () {
+                $('#email').removeClass('error');
+            }, 1000)
             error_code = 1;
         }
-    } else if($('#email').val().length == 0){
+    } else if($('#email').val().length === 0){
         $('#email').addClass('error');
+        $('[data-toggle="popover"]').popover('show');
+        setTimeout(function () {
+            $('#email').removeClass('error');
+        }, 1000)
         error_code = 1;
     };
-    if ($('#username').val().length == 0) {
+    if ($('#username').val().length === 0) {
         error_code = 1;
         $('#username').addClass('error');
+        setTimeout(function () {
+            $('#username').removeClass('error');
+            }, 1000)
+
     };
 
     return error_code;

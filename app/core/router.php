@@ -4,18 +4,11 @@ class Router {
 	
 	protected $route = [];
 	protected $path;
-	
-	//protected $params = [];
-	
-	function __construct(){
-		
-	}
-	
-	
+
 	function start(){
 		$controllerName = 'tasks';
 		$actionName = 'index';//static
-      	$modelName = 'main';
+      	$modelName = '';
 		$fullurl= Router::getCurrentUrl();
         $fullurl= parse_url($fullurl);
 		
@@ -46,13 +39,13 @@ class Router {
 		if (file_exists($file)) {
 			include ($file);
         } else {
-			die ('404 file Not Found');
+            Router::page404();
 		}
 		
 		$controller = new $controllerName();
 		
         if (is_callable(array($controller, $actionName)) == false) {
-			die ('404 action Not Found');
+			Router::page404();
         }
 
         $controller->$actionName();
@@ -81,6 +74,13 @@ class Router {
       $url .= $_SERVER["REQUEST_URI"];
        return $url;
        }
+
+   static function page404(){
+	    $host = 'https://'.$_SERVER['HTTP_HOST'].'/';
+        header('HTTP/1.1 404 Not Found');
+        header("Status: 404 Not Found");
+        header('Location:'.$host.'404');
+   }
 	
 	
 	

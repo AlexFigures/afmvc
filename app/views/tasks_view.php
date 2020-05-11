@@ -76,7 +76,7 @@
                     <div class="form-group row">
                         <label for="email" class="col-md-2 col-form-label">Email:</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Your email" required>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Your email" required data-toggle="popover" data-placement="bottom" data-trigger="focus" data-content="Please enter correct email!">
                         </div>
                     </div>
                     <label for="description" class="col-md-2 col-form-label row">Description: </label>
@@ -107,13 +107,13 @@
                     <b>Date Create:</b> <span id="mdc"></span><br>
                     <b>Date Update:</b> <span id="mdu"></span><br>
                     <b>Status:</b> <span id="mst"></span><br>
-                    <b>Description:</b><? if(Auth::isAuth()){ ?><button  id="editDesc" class="btn"><i class="far fa-edit" onclick="editDesc(); return false;"></i></button><? } ?>
+                    <b>Description:</b><? if(Auth::checkRights() == 1){ ?><button  id="editDesc" class="btn"><i class="far fa-edit" onclick="editDesc(); return false;"></i></button><? } ?>
                     <textarea class="form-control" disabled id="mdesc"></textarea><br>
                     <input type="hidden" id="mtuid" value="">
                 </form>
             </div>
             <div class="modal-footer">
-                <? if(Auth::isAuth()){ ?>
+                <? if(Auth::checkRights() == 1){ ?>
                 <button type="button" id="doneTask" class="btn btn-primary">Done</button>
                 <button type="button" id="editTask" class="btn btn-primary" >Edit</button>
                 <? } ?>

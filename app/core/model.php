@@ -115,9 +115,11 @@ Class Model {
                     $db = $this->db;
                     $stmt = $db->prepare("INSERT INTO $this->table ($field) values ($data)");
                     $stmt->execute();
+                    return true;
                 }catch(PDOException $e){
                     echo 'Error : '.$e->getMessage();
                     echo '<br/>Error sql : ' . "'INSERT INTO $this->table ($field) values ($data)'";
+                    return false;
                     exit();
                 }
           }

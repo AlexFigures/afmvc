@@ -54,7 +54,7 @@ function Register(){
         data: "rusername=" + encodeURIComponent($("#rusername").val()) + "&password=" + encodeURIComponent($("#password").val()) + "&remail=" + encodeURIComponent($("#remail").val()),
         success: function (response) {
             if(response.is_auth === true){
-                $('#successfull').html('<h3 class="text-center ">Success!</h3>');
+                $('#successfull').addClass('alert alert-success');
                 $('#successfull').prop('hidden', false)
                 setTimeout(function () {
                     $("#myModalBoxRegister").modal('hide');
@@ -151,7 +151,8 @@ $('body').on('click', 'button#login', function(event) {
 $('body').on('click', 'button#newTask', function(event) {
     event.preventDefault();
     if(checkNewTask() === 0) {
-     newTask();
+        $("#newTask").replaceWith('<button id="loadTask" disabled class="btn btn-dark buttonload"><i class="fa fa-spinner fa-spin"></i> Обработка</button>');
+        newTask();
      }
 });
 
@@ -164,13 +165,26 @@ $('body').on('click', 'button#doneTask', function(event) {
 });
 
 function newTask(){
+
     $.ajax({
         type: "POST",
         async: false,
         url: MyHOSTNAME + '/tasks/addTask',
         data: "mode=add_task" + "&username=" + encodeURIComponent($("#username").val()) + "&email=" + encodeURIComponent($("#email").val()) + "&desc=" + encodeURIComponent($("#description").val()),
-       success: function(html) {
-            window.location.reload();
+        success: function (response) {
+              if(response.addCheck === false){
+                $("#loadTask").replaceWith('<button disabled id="taskFalse" class="btn btn-danger"><i class="fa fa-warning"></i>Failed!</button>');
+                $('#notice').addClass('alert alert-danger');
+                $('#notice').html('Задача не добавлена, попробуйте перезагрузить страницу');
+                $('#notice').prop('hidden', false);
+            }else if(response.id){
+                var task = response.tuid;
+                $("#loadTask").replaceWith('<button disabled id="taskSuccess" class="btn btn-success"><i class="fa fa-check"></i>Created!</button>');
+                $('#notice').addClass('alert alert-success');
+                $('#notice').html('Задача добавлена успешно! <a href="?tuid='+ task + '">Перейти</a>');
+                $('#notice').prop('hidden', false);
+           }
+
         }
     });
 }

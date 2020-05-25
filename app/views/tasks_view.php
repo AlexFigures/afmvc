@@ -28,7 +28,7 @@
           ?>
             <tr>
                 <th scope="row"><? echo $task['id']; ?></th>
-                <td><a href="#" onclick="showModalWinTask('<?php echo $str; ?>'); return false;"><? echo $task['user']; ?></a></td>
+                <td><a id="<? echo $task['tuid'];?>" href="#" onclick="showModalWinTask('<?php echo $str; ?>'); return false;"><? echo $task['user']; ?></a></td>
                 <td><a href="#" onclick="showModalWinTask('<?php echo $str; ?>'); return false;"><? echo $task['email']; ?></a></td>
                 <td><a href="#" onclick="showModalWinTask('<?php echo $str; ?>'); return false;"><? echo $task['description']; ?></a></td>
                 <td><a href="#" onclick="showModalWinTask('<?php echo $str; ?>'); return false;"><? echo $task['date_create']; ?></a></td>
@@ -82,6 +82,9 @@
                     <label for="description" class="col-md-2 col-form-label row">Description: </label>
                     <div class="form-group col-md-12">
                             <textarea class="form-control " id="description" placeholder="Describe the task" rows="3"></textarea>
+                    </div>
+                    <div id="notice" hidden class="">
+
                     </div>
                 </form>
             </div>

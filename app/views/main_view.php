@@ -119,7 +119,7 @@ include $contentView;
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-12 bg-success rounded-pill" hidden id="successfull">
-
+                                    Success!
                                 </div>
                             </div>
                         </form>
@@ -131,6 +131,12 @@ include $contentView;
                 </div>
             </div>
         </div>
+        <?php
+        if(isset($_GET['tuid'])){ ?>
+            <script>
+                $("#<? echo $_GET['tuid']; ?>").click();
+            </script>
+        <?php } ?>
     </main>
 </body>
 <footer class="footer fixed-bottom">

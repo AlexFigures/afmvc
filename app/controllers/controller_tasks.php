@@ -82,21 +82,5 @@ Class Controller_tasks extends Controller
         }
 	}
 
-	function action_test(){
-        $tuid = md5(uniqid (rand (),false));
-        $fields = [
-            'user' => '1266666666663',
-            'email' => '123@test.ru',
-            'description' => '12345',
-            'tuid' => $tuid
-        ];
-        header('Content-type: application/json');
-        if($this->model->saveInTable($fields)) {
-            $task = $this->model->getTaskByUID($tuid);
-            $task[] = ["addCheck" => true];
-            echo json_encode($task);
-        } else {
-            echo json_encode(["addCheck" => false]);
-        } ;
-    }
+
 }
